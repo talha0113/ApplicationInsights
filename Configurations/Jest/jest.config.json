@@ -1,0 +1,23 @@
+{
+  "rootDir": "../../",
+  "bail": true,
+  "cache": false,
+  "clearMocks": true,
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "json",
+    "html"
+  ],
+  "globals": {
+    "ts-jest": {
+      "tsConfigFile": "./tsconfig.json"
+    }
+  },
+  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(t|j)sx?$",
+  "transform": {
+    "^.+\\.(t|j)sx?$": "ts-jest"
+  },
+  "testResultsProcessor": "<rootDir>/Configurations/Jest/jest.trx.processor"
+}
