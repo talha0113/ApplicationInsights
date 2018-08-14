@@ -3,19 +3,23 @@
   "version": "1.0.0-placeholder",
   "description": "Application Insights Bundle",
   "author": {
-    "name": "talha0113"
+    "name": "Mohammad Talha Nomani",
+    "email": "talha.nomani@outlook.com",
+    "url": "https://twitter.com/MTNomani"
   },
   "scripts": {
     "clean": "rimraf  *-manifest.json *.js *.js.map *.trx Source/**/*.js Source/**/*.js.map",
     "build": "npm run clean && webpack --mode production --config ./Configurations/WebPack/webpack.insights.config.js --progress --profile --bail",
     "test": "jest --c ./Configurations/Jest/jest.config.json --no-cache"
   },
+  "main": "mtno.insights.js",
   "publishConfig": {
     "access": "public"
   },
   "files": [
     "mtno.insights.js",
-    "mtno-insights-manifest.json"
+    "mtno-insights-manifest.json",
+    "README.md"
   ],
   "dependencies": {
     "applicationinsights-js": "~1.0.19-beta.1",
@@ -33,5 +37,11 @@
     "jest-trx-results-processor": "~0.0.7",
     "ts-jest": "~23.1.3",
     "jest": "~23.5.0"
-  }
+  },
+  "homepage": "https://github.com/talha0113/ApplicationInsights",
+  "bugs": {
+    "url": "https://github.com/talha0113/ApplicationInsights/issues",
+    "email": "talha.nomani@outlook.com"
+  },
+  "license": "Apache-2.0"
 }
