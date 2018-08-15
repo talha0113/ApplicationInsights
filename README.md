@@ -1,4 +1,4 @@
-﻿# @mtno/insights 
+## @mtno/insights 
 
 - **@mtno/insights** contains reesuable Microsoft Application Insights library to be used in different projects.
 - It is build using **WebPack** and **TypeScript**. Some basic unit tests using **jest**
@@ -10,7 +10,7 @@ To use this in your project, run:
 npm install --save-dev @mtno/insights
 ```
 Modify your project's **WebPack Configuration**  file and include following section:
-```json
+```
 plugins: [
         new webpack.DllReferencePlugin({
             context: ".",
@@ -22,4 +22,3 @@ Include the refrence of the Insights bundle either from **UNPKG CDN** or deploy 
 
 
 
-[Authors](AUTHORS)
