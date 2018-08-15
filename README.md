@@ -9,8 +9,8 @@
 
 ## @mtno/insights 
 
-- **@mtno/insights** contains reesuable Microsoft Application Insights library to be used in different projects.
-- It is build using **WebPack** and **TypeScript**. Some basic unit tests using **jest**
+- **@mtno/insights** contains reusable Microsoft Application Insights library to be used in different projects.
+- It is built using **WebPack** and **TypeScript**. Some basic unit tests using **jest**
 
 ## Usage
 
@@ -29,7 +29,7 @@ plugins: [
         })
 ]
 ```
-Include the refrence of the Insights bundle either from **UNPKG CDN** or deploy the bundle as part of ayour application
+Include the refrence of the Insights bundle either from **UNPKG CDN** or deploy the bundle file as part of ayour application
 
 
 
