@@ -67,7 +67,7 @@ stages:
         verbose: false
         customCommand: 'pack'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
-
+    
     # Copy Build Output
     - task: CopyFiles@2
       displayName: Copy
