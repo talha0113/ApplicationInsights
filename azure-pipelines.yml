@@ -108,7 +108,7 @@ stages:
           - task: ExtractFiles@1
             displayName: 'Extract Application'
             inputs:
-              archiveFilePatterns: '$(System.DefaultWorkingDirectory)/Drop/*.tgz'
+              archiveFilePatterns: '$(System.DefaultWorkingDirectory)/../Drop/*.tgz'
               destinationFolder: '$(System.DefaultWorkingDirectory)/npm-publish'
 
           # Deploy Package
