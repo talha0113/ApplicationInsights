@@ -85,3 +85,36 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: Drop
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- stage: Deploy_NPM
+  displayName: 'NPM'
+  dependsOn: 'Build'  
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  jobs:
+
+  - deployment: Deploy_Package_NPM
+    displayName: 'npm Registry'
+    environment: 'npm'
+    pool:
+        name: 'Hosted Windows 2019 with VS2019'  
+    continueOnError: 'false'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          # Extract Package
+          - task: ExtractFiles@1
+            displayName: 'Extract Application'
+            inputs:
+              archiveFilePatterns: '*.tgz'
+              destinationFolder: 'npm-publish'
+
+          # Deploy Package
+          - task: Npm@1
+          displayName: Publish
+          inputs:
+            command: publish
+            workingDir: 'npm-publish/package'
+            publishEndpoint: 'Public npm Registry'
