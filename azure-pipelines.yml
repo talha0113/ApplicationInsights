@@ -113,8 +113,8 @@ stages:
           
           - powershell: |
               Get-ChildItem -Recurse:$true
-            displayName: Version
-            workingDirectory: '$(System.DefaultWorkingDirectory)/npm-publish'
+            displayName: Files
+            workingDirectory: '$(System.DefaultWorkingDirectory)/npm-publish/package'
       
           # Deploy Package
           - task: Npm@1
