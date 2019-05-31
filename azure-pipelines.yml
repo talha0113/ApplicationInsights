@@ -1,0 +1,87 @@
+trigger:
+    branches:
+        include:
+        - master
+        - feature/*
+        - bug/*
+
+stages:
+
+- stage: Build
+  displayName: Build
+  
+  jobs:
+
+  - job: Package
+    displayName: 'Package'
+    pool:
+        name: 'Hosted Ubuntu 1604'  
+    continueOnError: 'false'
+    workspace:
+      clean: all
+    
+    steps:
+
+    # Perform npm Install
+    - task: Npm@1
+      displayName: 'Install'
+      inputs:
+        verbose: false
+
+    # Perform Build
+    - task: Npm@1
+      displayName: 'Build'
+      inputs:
+        command: custom
+        verbose: false
+        customCommand: 'run build'
+
+    # Perform Tests
+    - task: Npm@1
+      displayName: 'Test'
+      inputs:
+        command: custom
+        verbose: false
+        customCommand: 'test'
+      condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))   
+
+    # Attach Test Report
+    - task: PublishTestResults@2
+      displayName: 'Report Tests'
+      inputs:
+        testResultsFormat: VSTest
+        testResultsFiles: '**/*.trx'
+      condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+    
+    - powershell: |
+        Write-Host ("Build ID: $(Build.BuildId)")
+        (Get-Content package.json).replace('0-placeholder', '$(Build.BuildId)') | Set-Content package.json
+      displayName: Version
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+
+    # Perform npm Package
+    - task: Npm@1
+      displayName: 'Package'
+      inputs:
+        command: custom
+        verbose: false
+        customCommand: 'pack'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+    
+    # Copy Build Output
+    - task: CopyFiles@2
+      displayName: Copy
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)'
+        Contents: '*.tgz'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        CleanTargetFolder: true
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+    # Attach Build Output
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: Drop
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
