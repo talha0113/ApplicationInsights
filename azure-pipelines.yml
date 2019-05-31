@@ -110,7 +110,12 @@ stages:
             inputs:
               archiveFilePatterns: '$(System.DefaultWorkingDirectory)/../Drop/*.tgz'
               destinationFolder: '$(System.DefaultWorkingDirectory)/npm-publish'
-
+          
+          - powershell: |
+              Get-ChildItem -Recurse:$true
+            displayName: Version
+            workingDirectory: '$(System.DefaultWorkingDirectory)/npm-publish'
+      
           # Deploy Package
           - task: Npm@1
           displayName: Publish
