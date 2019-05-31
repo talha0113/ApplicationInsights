@@ -118,8 +118,9 @@ stages:
       
           # Deploy Package
           - task: Npm@1
-          displayName: Publish
-          inputs:
-            command: publish
-            workingDir: '$(System.DefaultWorkingDirectory)/npm-publish/package'
-            publishEndpoint: 'Public npm Registry'
+            displayName: Publish
+            inputs:
+              command: publish
+              workingDir: '$(System.DefaultWorkingDirectory)/npm-publish/package'
+              publishEndpoint: 'Public npm Registry'
+          
