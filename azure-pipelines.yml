@@ -108,13 +108,13 @@ stages:
           - task: ExtractFiles@1
             displayName: 'Extract Application'
             inputs:
-              archiveFilePatterns: '*.tgz'
-              destinationFolder: 'npm-publish'
+              archiveFilePatterns: '$(System.DefaultWorkingDirectory)/Drop/*.tgz'
+              destinationFolder: '$(System.DefaultWorkingDirectory)/npm-publish'
 
           # Deploy Package
           - task: Npm@1
           displayName: Publish
           inputs:
             command: publish
-            workingDir: 'npm-publish/package'
+            workingDir: '$(System.DefaultWorkingDirectory)/npm-publish/package'
             publishEndpoint: 'Public npm Registry'
